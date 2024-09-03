@@ -8,9 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import react.spring.react_spring_pjt.bbs.domain.BbsRequestDTO;
 import react.spring.react_spring_pjt.bbs.domain.BbsResponseDTO;
+import react.spring.react_spring_pjt.bbs.domain.comment.CommentRequestDTO;
+import react.spring.react_spring_pjt.bbs.domain.comment.CommentResponseDTO;
 import react.spring.react_spring_pjt.bbs.service.BbsService;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -19,8 +23,6 @@ import java.util.Optional;
 import java.util.HashMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 
 @RestController
@@ -76,6 +78,52 @@ public class BbsController {
         }
         
     }
+
+    @PostMapping("/comment/save")
+    public ResponseEntity<Object> commentSave(@RequestBody CommentRequestDTO params) {
+
+        System.out.println("client endpoint : /bbs/comment/save");
+        System.out.println("params = " + params);
+
+        bbsService.createComment(params);
+        
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
     
+    @GetMapping("/comment/getComment/{id}")
+    public ResponseEntity<Object> getComment(@PathVariable(name="id") Integer id) {
+        System.out.println("id = " + id);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("id", id);
+
+        List<CommentResponseDTO> list = bbsService.findComment(map);
+        System.out.println("list size = " + list.size());
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable(name="id") Integer id) {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("id", id);
+
+        bbsService.delete(map);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody BbsRequestDTO params) {
+        System.out.println("debug >>> service update");
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("title", params.getTitle());
+        map.put("content", params.getContent());
+
+        bbsService.update(map);
+        
+        return null;
+    }
+
     
 }

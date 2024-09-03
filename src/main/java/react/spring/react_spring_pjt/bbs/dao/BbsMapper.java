@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import react.spring.react_spring_pjt.bbs.domain.BbsRequestDTO;
 import react.spring.react_spring_pjt.bbs.domain.BbsResponseDTO;
+import react.spring.react_spring_pjt.bbs.domain.comment.CommentRequestDTO;
 import react.spring.react_spring_pjt.bbs.domain.comment.CommentResponseDTO;
 
 @Mapper
@@ -21,4 +22,10 @@ public interface BbsMapper {
     public Optional<BbsResponseDTO> viewRow(Map<String, Integer> map);
 
     public ArrayList<CommentResponseDTO> commentViewRow(Map<String, Integer> map);
+
+    public void createComment(CommentRequestDTO params);
+
+    public void deleteRow(Map<String, Integer> map);
+
+    public void updateRow(Map<String, Object> map);
 }

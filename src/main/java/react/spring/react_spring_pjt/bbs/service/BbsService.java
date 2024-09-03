@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import react.spring.react_spring_pjt.bbs.dao.BbsMapper;
 import react.spring.react_spring_pjt.bbs.domain.BbsRequestDTO;
 import react.spring.react_spring_pjt.bbs.domain.BbsResponseDTO;
+import react.spring.react_spring_pjt.bbs.domain.comment.CommentRequestDTO;
 import react.spring.react_spring_pjt.bbs.domain.comment.CommentResponseDTO;
 
 import java.util.ArrayList;
@@ -41,5 +42,25 @@ public class BbsService {
         }
 
         return response;
+    }
+
+    public void createComment(CommentRequestDTO params){
+        System.out.println("debug >>> service createComment " + bbsMapper);
+
+        bbsMapper.createComment(params);
+    }
+
+    public List<CommentResponseDTO> findComment(Map<String, Integer> map){
+        List<CommentResponseDTO> list = bbsMapper.commentViewRow(map);
+
+        return list;
+    }
+
+    public void delete(Map<String, Integer> map) {
+        bbsMapper.deleteRow(map);
+    }
+
+    public void update(Map<String, Object> map) {
+        bbsMapper.updateRow(map);
     }
 }

@@ -36,5 +36,30 @@
         FROM TB_COMMENT
         WHERE BBSID = #{id}
     </select>
-    
+
+    <!-- createComment --> 
+
+    <insert id="createComment"
+            parameterType="react.spring.react_spring_pjt.bbs.domain.comment.CommentRequestDTO">
+        INSERT INTO TB_COMMENT(CONTENT, BBSID)
+        VALUES(#{content}, #{bbsid})
+    </insert>    
+
+    <!-- deleteRow --> 
+
+    <delete id="deleteRow"
+            parameterType="java.util.HashMap">
+        DELETE FROM TB_BBS
+        WHERE ID = #{id}
+    </delete>    
+
+    <!-- updateRow --> 
+
+    <update id="updateRow"
+            parameterType="java.util.HashMap">
+        UPDATE TB_BBS 
+        SET TITLE=#{title}, CONTENT=#{content} 
+        WHERE id=#{id}
+    </update>
+
 </mapper>

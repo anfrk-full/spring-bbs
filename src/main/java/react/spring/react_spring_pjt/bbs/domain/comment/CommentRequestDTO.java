@@ -9,5 +9,5 @@ import lombok.ToString;
 @ToString
 public class CommentRequestDTO {
     private String content;
-    private int bbsId;
+    private int bbsid;
 }
